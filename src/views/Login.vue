@@ -50,7 +50,7 @@
           <!-- form -->
           <validation-observer ref="loginValidation">
             <b-form
-              class="auth-login-form mt-2"
+              class="login-form mt-2"
               @submit.prevent
             >
               <!-- email -->
@@ -68,7 +68,7 @@
                     v-model="userEmail"
                     :state="errors.length > 0 ? false:null"
                     name="login-email"
-                    placeholder="john@example.com"
+                    placeholder="admin@gmail.com"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
@@ -78,9 +78,9 @@
               <b-form-group>
                 <div class="d-flex justify-content-between">
                   <label for="login-password">Password</label>
-                  <b-link :to="{name:'auth-forgot-password-v2'}">
+                  <!-- <b-link :to="{name:'auth-forgot-password-v2'}">
                     <small>Forgot Password?</small>
-                  </b-link>
+                  </b-link> -->
                 </div>
                 <validation-provider
                   #default="{ errors }"
@@ -113,7 +113,7 @@
               </b-form-group>
 
               <!-- checkbox -->
-              <b-form-group>
+              <!-- <b-form-group>
                 <b-form-checkbox
                   id="remember-me"
                   v-model="status"
@@ -121,7 +121,7 @@
                 >
                   Remember Me
                 </b-form-checkbox>
-              </b-form-group>
+              </b-form-group> -->
 
               <!-- submit buttons -->
               <b-button
@@ -135,22 +135,22 @@
             </b-form>
           </validation-observer>
 
-          <b-card-text class="text-center mt-2">
+          <!-- <b-card-text class="text-center mt-2">
             <span>New on our platform? </span>
             <b-link :to="{name:'page-auth-register-v2'}">
               <span>&nbsp;Create an account</span>
             </b-link>
-          </b-card-text>
+          </b-card-text> -->
 
           <!-- divider -->
-          <div class="divider my-2">
+          <!-- <div class="divider my-2">
             <div class="divider-text">
               or
             </div>
-          </div>
+          </div> -->
 
           <!-- social buttons -->
-          <div class="auth-footer-btn d-flex justify-content-center">
+          <!-- <div class="auth-footer-btn d-flex justify-content-center">
             <b-button
               variant="facebook"
               href="javascript:void(0)"
@@ -175,7 +175,7 @@
             >
               <feather-icon icon="GithubIcon" />
             </b-button>
-          </div>
+          </div> -->
         </b-col>
       </b-col>
     <!-- /Login-->
@@ -190,6 +190,8 @@ import VuexyLogo from '@core/layouts/components/Logo.vue'
 import {
   BRow, BCol, BLink, BFormGroup, BFormInput, BInputGroupAppend, BInputGroup, BFormCheckbox, BCardText, BCardTitle, BImg, BForm, BButton,
 } from 'bootstrap-vue'
+import { initialAbility, adminAbility } from '@/libs/acl/config'
+import useJwt from '@/auth/jwt/useJwt'
 import { required, email } from '@validations'
 import { togglePasswordVisibility } from '@core/mixins/ui/forms'
 import store from '@/store/index'
@@ -243,17 +245,45 @@ export default {
     validationForm() {
       this.$refs.loginValidation.validate().then(success => {
         if (success) {
-          this.$toast({
-            component: ToastificationContent,
-            props: {
-              title: 'Form Submitted',
-              icon: 'EditIcon',
-              variant: 'success',
-            },
+          useJwt.login({
+            email: this.userEmail,
+            password: this.password,
+          }).then(response => {
+            useJwt.setToken(response.data.accessToken)
+
+            this.$store.dispatch('auth/checkUser').then(res => {
+              this.$ability.update(res.data.user.ability)
+              this.$router.replace('/')
+                .then(() => {
+                  const user = JSON.parse(localStorage.getItem('userData'))
+                  this.$toast({
+                    component: ToastificationContent,
+                    position: 'top-right',
+                    props: {
+                      title: `${this.$t('welcome')} ${user.name}`,
+                      icon: 'CoffeeIcon',
+                      variant: 'success',
+                      text: `${this.$t('logged')} !`,
+                    },
+                  })
+                })
+            })
+          })
+          .catch(error => {
+            this.$toast({
+              component: ToastificationContent,
+                position: 'top-right',
+                props: {
+                  title: `${this.$t('loginFailed')}`,
+                  icon: 'XIcon',
+                  variant: 'danger',
+                  text: error.response.data.message,
+                },
+            })
           })
         }
       })
-    },
+    }
   },
 }
 </script>

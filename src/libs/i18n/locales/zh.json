@@ -1,0 +1,82 @@
+{
+    "common": {
+        "admin": "管理員",
+        "welcome": "歡迎",
+        "logged": "成功登入",
+        "loginFailed": "登入失敗",
+        "list": "列表",
+        "create": "新增",
+        "edit": "修改",
+        "delete": "刪除",
+        "search": "查詢",
+        "success": "成功",
+        "failed": "失敗",
+        "yes": "是",
+        "no": "否",
+        "checkDelete": "確定要刪除嗎?",
+        "cantRevert": "此操作無法還原!"
+    },
+    "table": {
+        "Search": "搜尋",
+        "Showing": "顯示",
+        "to": "到",
+        "of": "共",
+        "entries": "筆",
+        "start_date": "日期區間",
+        "end_date": "結束日期"
+    },
+    "menus": {
+        "home": "儀表板",
+        "systemManagement": "系統管理",
+        "roleManagement": "角色管理"
+    },
+    "roleManagement": {
+        "name": "名稱",
+        "permission": "權限",
+        "created_by": "創建人員",
+        "created_at": "創建時間",
+        "updated_by": "異動人員",
+        "updated_at": "異動時間",
+        "action": "操作"
+    },
+    "validations": {
+        "names": {
+            "Name": "名稱",
+            "Email": "信箱",
+            "Account": "帳號",
+            "Password": "密碼",
+            "Old Password": "舊密碼",
+            "New Password": "新密碼",
+            "Confirm the new password": "確認新密碼",
+            "Confirm the password": "確認密碼"
+        },
+        "messages": {
+            "alpha": "{_field_} 須以英文組成",
+            "alpha_dash": "{_field_} 須以英數、斜線及底線組成",
+            "alpha_num": "{_field_} 須以英數組成",
+            "alpha_spaces": "{_field_} 須以英文及空格組成",
+            "between": "{_field_} 須介於 {min} 至 {max}之間",
+            "confirmed": " {_field_} 不一致",
+            "digits": "{_field_} 須為 {length} 位數字",
+            "dimensions": "{_field_} 圖片尺寸不正確。須為 {width} x {height} 像素",
+            "email": "{_field_} 須為有效的電子信箱",
+            "excluded": "{_field_} 的選項無效",
+            "ext": "{_field_} 須為有效的檔案",
+            "image": "{_field_} 須為圖片",
+            "oneOf": "{_field_} 的選項無效",
+            "integer": "{_field_} 須為整數",
+            "length": "{_field_} 的長度須為 {length}",
+            "max": "{_field_} 不能大於 {length} 個字元",
+            "max_value": "{_field_} 不得大於 {max}",
+            "mimes": "{_field_} 須為有效的檔案類型",
+            "min": "{_field_} 不能小於 {length} 個字元",
+            "min_value": "{_field_} 不得小於 {min}",
+            "numeric": "{_field_} 須為數字",
+            "regex": "{_field_} 的格式錯誤",
+            "required": "{_field_} 為必填",
+            "required_if": "{_field_} 為必填",
+            "size": "{_field_} 的檔案須小於 {size}KB",
+            "double": "{_field_}字段必須為有效的小數"
+        }
+    }
+}

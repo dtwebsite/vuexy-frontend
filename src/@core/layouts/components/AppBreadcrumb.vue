@@ -13,7 +13,7 @@
       <b-row class="breadcrumbs-top">
         <b-col cols="12">
           <h2 class="content-header-title float-left pr-1 mb-0">
-            {{ $route.meta.pageTitle }}
+            {{ $t($route.meta.pageTitle) }}
           </h2>
           <div class="breadcrumb-wrapper">
             <b-breadcrumb>
@@ -30,7 +30,7 @@
                 :active="item.active"
                 :to="item.to"
               >
-                {{ item.text }}
+                {{ $t(item.text) }}
               </b-breadcrumb-item>
             </b-breadcrumb>
           </div>
@@ -44,7 +44,7 @@
       md="3"
       cols="12"
     >
-      <b-dropdown
+      <!-- <b-dropdown
         variant="link"
         no-caret
         toggle-class="p-0"
@@ -92,7 +92,7 @@
           />
           <span class="align-middle ml-50">Calendar</span>
         </b-dropdown-item>
-      </b-dropdown>
+      </b-dropdown> -->
     </b-col>
   </b-row>
 </template>

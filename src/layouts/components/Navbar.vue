@@ -22,6 +22,7 @@
     </div>
 
     <b-navbar-nav class="nav align-items-center ml-auto">
+      <locale />
       <b-nav-item-dropdown
         right
         toggle-class="d-flex align-items-center dropdown-user-link"
@@ -30,9 +31,9 @@
         <template #button-content>
           <div class="d-sm-flex d-none user-nav">
             <p class="user-name font-weight-bolder mb-0">
-              John Doe
+              {{ $store.state.auth.name }}
             </p>
-            <span class="user-status">Admin</span>
+            <span class="user-status">{{ $t('common.admin') }}</span>
           </div>
           <b-avatar
             size="40"
@@ -100,6 +101,9 @@ import {
   BLink, BNavbarNav, BNavItemDropdown, BDropdownItem, BDropdownDivider, BAvatar,
 } from 'bootstrap-vue'
 import DarkToggler from '@core/layouts/components/app-navbar/components/DarkToggler.vue'
+import Locale from '@core/layouts/components/app-navbar/components/Locale.vue'
+import { initialAbility } from '@/libs/acl/config'
+import useJwt from '@/auth/jwt/useJwt'
 
 export default {
   components: {
@@ -112,6 +116,7 @@ export default {
 
     // Navbar Components
     DarkToggler,
+    Locale,
   },
   props: {
     toggleVerticalMenuActive: {
@@ -119,5 +124,21 @@ export default {
       default: () => {},
     },
   },
+  methods: {
+    logout() {
+      // Remove userData from localStorage
+      // ? You just removed token from localStorage. If you like, you can also make API call to backend to blacklist used token
+      localStorage.removeItem(useJwt.jwtConfig.storageTokenKeyName)
+
+      // Remove userData from localStorage
+      localStorage.removeItem('userData')
+
+      // Reset ability
+      this.$ability.update(initialAbility)
+
+      // Redirect to login page
+      this.$router.push({ name: 'login' })
+    },
+  }
 }
 </script>

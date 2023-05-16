@@ -1,12 +1,9 @@
+import systemManagement from './systemManagement'
 export default [
   {
-    title: 'Home',
+    title: 'menus.home',
     route: 'home',
     icon: 'HomeIcon',
   },
-  {
-    title: 'Second Page',
-    route: 'second-page',
-    icon: 'FileIcon',
-  },
+  ...systemManagement,
 ]
