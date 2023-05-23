@@ -260,10 +260,10 @@ export default {
                     component: ToastificationContent,
                     position: 'top-right',
                     props: {
-                      title: `${this.$t('welcome')} ${user.name}`,
+                      title: `${this.$t('common.welcome')} ${user.name}`,
                       icon: 'CoffeeIcon',
                       variant: 'success',
-                      text: `${this.$t('logged')} !`,
+                      text: `${this.$t('common.logged')} !`,
                     },
                   })
                 })
@@ -274,7 +274,7 @@ export default {
               component: ToastificationContent,
                 position: 'top-right',
                 props: {
-                  title: `${this.$t('loginFailed')}`,
+                  title: `${this.$t('common.loginFailed')}`,
                   icon: 'XIcon',
                   variant: 'danger',
                   text: error.response.data.message,
